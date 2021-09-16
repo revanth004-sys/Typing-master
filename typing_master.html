@@ -1,0 +1,98 @@
+<html>
+<head>
+<style>
+body{
+display: flex;
+justify-content: center;
+align-items: center;
+background: #333;
+color: #fff;
+}
+h2{
+margin: 0px 40px;
+font-weight: 300;
+}
+input{
+margin: 0 30px;
+border-radius: 20px;
+padding:5px 10px;
+color: red;
+letter-spacing: 3px;
+}
+span{
+margin:0 80px;
+}
+#time,#score{
+margin: 0 -60px;
+}
+.wordinput,.message{
+margin: 10px 60px;
+display: flex;
+justify-content: center;
+}
+div input::placeholder{
+letter-spacing: 4px;
+
+}
+</style>
+</head>
+<body>
+<div>
+<h2>TYPING MASTER</h2>
+<h4>Enter the word before the time run outs</h4>
+<h1 class="wordinput"></h1>
+<input type="text" placeholder="start typing..." class="currentword"></input>
+<h4 class="message"></h4>
+<span>Time is:</span><span id="time">0</span><br>
+<span>score is:</span><span id="score">0</span>
+
+<script>
+window.addEventListener("load",init);
+var time=11;
+var score=0;
+var isplaying;
+
+const wordinput=document.querySelector(".wordinput");
+const currentword=document.querySelector(".currentword");
+const timedisplay=document.querySelector("#time");
+const scoredisplay=document.querySelector("#score");
+const message=document.querySelector(".message");
+
+var words=['laptop','robot','computer','desktop','mouse','harddisk','software','hardware','cpu','byte',
+           'magic','juice','astronomical','philosophy','tough','easy','velocity','urban'];
+
+function init(){
+showword();
+setInterval(count,1000);
+currentword.addEventListener('input',checkmatch);
+game();
+}
+function checkmatch(){
+if(currentword.value==wordinput.innerHTML){
+    time=11;
+   score+=1;
+   currentword.value='';
+   scoredisplay.innerHTML= score;
+   message.innerHTML="correct match!!!";
+   showword();
+}}
+
+function showword(){
+var ranind = Math.floor(Math.random() * words.length);
+wordinput.innerHTML=words[ranind];
+}
+
+function count(){
+if(time>0){
+time--;
+timedisplay.innerHTML = time;
+}
+else if(time==0){
+message.innerHTML="gameover!!";
+score=0;
+}
+}
+
+</script>
+</body>
+</html>
